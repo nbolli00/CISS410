@@ -1,0 +1,37 @@
+#Noah Bollinger
+#2/27/2018
+#complete.csv
+
+import json
+import csv
+
+"""
+a1_process.py
+kt
+1.21
+"""
+
+r_ct = 0
+ufo_data = []
+with open('complete.csv', 'r') as csvfile:
+	ufo_stream = csv.DictReader(csvfile)
+	for ufo_row in ufo_stream:
+		r_ct += 1
+		ufo_data.append(ufo_row)
+		
+		#selecting which rows will be displayed
+		mycity = ufo_row['city']
+		mystate = ufo_row['state']
+		mydurminh = ufo_row['duration (hours/min)']
+		mydursecs = ufo_row['duration (seconds)']
+		if r_ct <= 10:
+			print(r_ct, mycity, mystate, mydurminh, mydursecs)
+			
+		if r_ct > 500:
+			break
+		#the output statement
+print('Mom, I found this many rows:', r_ct)
+with open('url_report.json', 'w') as  fo:
+	json.dump(ufo_data, fo, sort_keys=True, indent=4, separators=(',', ': '))
+	
+print('All done here')
